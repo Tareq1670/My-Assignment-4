@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Daisy UI -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/daisyui@5"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <title>Job Application Tracker</title>
+    </head>
+    <body class="font-['Geist',sans-serif] bg-base-200 min-h-dvh">
+        <!-- Counter Section -->
+        <header class="container max-w-[1110px] mx-auto p-1 sm:p-0">
+            <h1 class="text-[32px] opacity-90 text-neutral font-bold mb-[20px] pt-2 sm:pt-6">
+                Job Application Tracker
+            </h1>
+            <div
+                class="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-4"
+            >
+                <div
+                    class="total_content p-5 rounded-[8px] bg-base-100 space-y-2 border border-base-300"
+                >
+                    <p class="text-[14px] text-neutral opacity-70">Total</p>
+                    <h2
+                        id="total_count"
+                        class="text-[24px] text-neutral font-bold"
+                    >
+                        0
+                    </h2>
+                </div>
+                <div
+                    class="interview_content p-5 rounded-[8px] bg-base-100 space-y-2 border border-base-300"
+                >
+                    <p class="text-[14px] text-neutral opacity-70">Interview</p>
+                    <h2
+                        id="interview_count"
+                        class="text-[24px] text-success font-bold"
+                    >
+                        0
+                    </h2>
+                </div>
+                <div
+                    class="total_content p-5 rounded-[8px] bg-base-100 space-y-2 borderborder-base-300"
+                >
+                    <p class="text-[14px] text-neutral opacity-70">Rejected</p>
+                    <h2
+                        id="rejected_count"
+                        class="text-[24px] text-error font-bold"
+                    >
+                        0
+                    </h2>
+                </div>
+            </div>
+            <hr class="my-[30px] border border-base-300" />
+        </header>
+
+        <main class="container max-w-[1110px] mx-auto p-1 sm:p-0">
+            <!--Toggle Button section -->
+            <section class="space-y-6 mb-4 w-full">
+                <div class="flex justify-between items-center">
+                    <h3
+                        class="text-[20px] opacity-80 text-neutral font-semibold"
+                    >
+                        Available Jobs
+                    </h3>
+                    <p id="jobs_count" class="font-medium font-base-200">
+                        8 Jobs
+                    </p>
+                </div>
+
+                <!-- Toggle Button Section -->
+                <div class="flex gap-2">
+                    <button
+                        onclick="toggleButton('all_btn')"
+                        id="all_btn"
+                        class="font-semibold text-[12px] px-8 py-[10px] border border-base-300 rounded-[4px] cursor-pointer"
+                    >
+                        All
+                    </button>
+                    <button
+                        onclick="toggleButton('interview_btn')"
+                        id="interview_btn"
+                        class="font-semibold text-[12px] px-8 py-[10px] border border-base-300 rounded-[4px] cursor-pointer"
+                    >
+                        Interview
+                    </button>
+                    <button
+                        onclick="toggleButton('rejected_btn')"
+                        id="rejected_btn"
+                        class="font-semibold text-[12px] px-8 py-[10px] border border-base-300 rounded-[4px] cursor-pointer"
+                    >
+                        Rejected
+                    </button>
+                </div>
+            </section>
+
+            <!-- All Items Section -->
+            <section id="main_container" class="w-full space-y-4">
+                <div
+                    class="flex justify-between bg-base-100 border border-base-300 p-6 rounded-[8px]"
+                >
+                    <div class="left space-y-5">
+                        <div class="heading space-y-1">
+                            <h2
+                                class="sub_title text-[18px] opacity-90 text-neutral text-[18px] font-semibold"
+                            >
+                                TechNova Ltd.
+                            </h2>
+                            <p
+                                class="text_1 text-neutral opacity-60 text-[16px]"
+                            >
+                                Frontend Developer
+                            </p>
+                        </div>
+                        <div
+                            class="type flex text-neutral opacity-60 text-[14px] sm:text-[16px]"
+                        >
+                            <p class="place">Dhaka</p>
+                            <ul class="list-disc list-outside pl-6 flex gap-7">
+                                <li class="job_type">Full-time</li>
+                                <li class="salary">40,000 BDT</li>
+                            </ul>
+                        </div>
+                        <div class="apply space-y-2">
+                            <div class="set_type">
+                                <p
+                                    class="apply_type bg-info/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-base-300 font-medium"
+                                >
+                                    NOT APPLIED
+                                </p>
+                            </div>
+                            <p class="description text-[14px] text-neutral/90">
+                                Build responsive dashboards using React.
+                            </p>
+                        </div>
+                        <div class="button flex gap-2">
+                            <button
+                                class="interview_btn btn btn-success btn-outline border-2"
+                            >
+                                INTERVIEW
+                            </button>
+                            <button
+                                class="rejected_btn btn btn-error btn-outline border-2"
+                            >
+                                REJECTED
+                            </button>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div
+                            class="w-8 h-8 circle rounded-full border-2 border-base-300 cursor-pointer flex items-center justify-center"
+                        >
+                            <i
+                                class="text-neutral/50 fa-regular fa-trash-can"
+                            ></i>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex justify-between bg-base-100 border border-base-300 p-6 rounded-[8px]"
+                >
+                    <div class="left space-y-5">
+                        <div class="heading space-y-1">
+                            <h2
+                                class="sub_title text-[18px] opacity-90 text-neutral text-[18px] font-semibold"
+                            >
+                                ByteCraft
+                            </h2>
+                            <p
+                                class="text_1 text-neutral opacity-60 text-[16px]"
+                            >
+                                Backend Developer
+                            </p>
+                        </div>
+                        <div
+                            class="type flex text-neutral opacity-60 text-[14px] sm:text-[16px]"
+                        >
+                            <p class="place">Chittagong</p>
+                            <ul class="list-disc list-outside pl-6 flex gap-7">
+                                <li class="job_type">Remote</li>
+                                <li class="salary">50,000 BDT</li>
+                            </ul>
+                        </div>
+                        <div class="apply space-y-2">
+                            <div class="set_type">
+                                <p
+                                    class="apply_type bg-info/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-base-300 font-medium"
+                                >
+                                    NOT APPLIED
+                                </p>
+                            </div>
+                            <p class="description text-[14px] text-neutral/90">
+                                Develop REST APIs with Node.js and Express.
+                            </p>
+                        </div>
+                        <div class="button flex gap-2">
+                            <button
+                                class="interview_btn btn btn-success btn-outline border-2"
+                            >
+                                INTERVIEW
+                            </button>
+                            <button
+                                class="rejected_btn btn btn-error btn-outline border-2"
+                            >
+                                REJECTED
+                            </button>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div
+                            class="w-8 h-8 circle rounded-full border-2 border-base-300 cursor-pointer flex items-center justify-center"
+                        >
+                            <i
+                                class="text-neutral/50 fa-regular fa-trash-can"
+                            ></i>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex justify-between bg-base-100 border border-base-300 p-6 rounded-[8px]"
+                >
+                    <div class="left space-y-5">
+                        <div class="heading space-y-1">
+                            <h2
+                                class="sub_title text-[18px] opacity-90 text-neutral text-[18px] font-semibold"
+                            >
+                                SoftHub
+                            </h2>
+                            <p
+                                class="text_1 text-neutral opacity-60 text-[16px]"
+                            >
+                                UI/UX Designer
+                            </p>
+                        </div>
+                        <div
+                            class="type flex text-neutral opacity-60 text-[14px] sm:text-[16px]"
+                        >
+                            <p class="place">Sylhet</p>
+                            <ul class="list-disc list-outside pl-6 flex gap-7">
+                                <li class="job_type">Part-time</li>
+                                <li class="salary">25,000 BDT</li>
+                            </ul>
+                        </div>
+                        <div class="apply space-y-2">
+                            <div class="set_type">
+                                <p
+                                    class="apply_type bg-info/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-base-300 font-medium"
+                                >
+                                    NOT APPLIED
+                                </p>
+                            </div>
+                            <p class="description text-[14px] text-neutral/90">
+                                Design mobile app interfaces and prototypes.
+                            </p>
+                        </div>
+                        <div class="button flex gap-2">
+                            <button
+                                class="interview_btn btn btn-success btn-outline border-2"
+                            >
+                                INTERVIEW
+                            </button>
+                            <button
+                                class="rejected_btn btn btn-error btn-outline border-2"
+                            >
+                                REJECTED
+                            </button>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div
+                            class="w-8 h-8 circle rounded-full border-2 border-base-300 cursor-pointer flex items-center justify-center"
+                        >
+                            <i
+                                class="text-neutral/50 fa-regular fa-trash-can"
+                            ></i>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex justify-between bg-base-100 border border-base-300 p-6 rounded-[8px]"
+                >
+                    <div class="left space-y-5">
+                        <div class="heading space-y-1">
+                            <h2
+                                class="sub_title text-[18px] opacity-90 text-neutral text-[18px] font-semibold"
+                            >
+                                CodeBase Ltd.
+                            </h2>
+                            <p
+                                class="text_1 text-neutral opacity-60 text-[16px]"
+                            >
+                                Full Stack Developer
+                            </p>
+                        </div>
+                        <div
+                            class="type flex text-neutral opacity-60 text-[14px] sm:text-[16px]"
+                        >
+                            <p class="place">Rajshahi</p>
+                            <ul class="list-disc list-outside pl-6 flex gap-7">
+                                <li class="job_type">Full-time</li>
+                                <li class="salary">60,000 BDT</li>
+                            </ul>
+                        </div>
+                        <div class="apply space-y-2">
+                            <div class="set_type">
+                                <p
+                                    class="apply_type bg-info/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-base-300 font-medium"
+                                >
+                                    NOT APPLIED
+                                </p>
+                            </div>
+                            <p class="description text-[14px] text-neutral/90">
+                                Work on MERN stack web applications.
+                            </p>
+                        </div>
+                        <div class="button flex gap-2">
+                            <button
+                                class="interview_btn btn btn-success btn-outline border-2"
+                            >
+                                INTERVIEW
+                            </button>
+                            <button
+                                class="rejected_btn btn btn-error btn-outline border-2"
+                            >
+                                REJECTED
+                            </button>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div
+                            class="w-8 h-8 circle rounded-full border-2 border-base-300 cursor-pointer flex items-center justify-center"
+                        >
+                            <i
+                                class="text-neutral/50 fa-regular fa-trash-can"
+                            ></i>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex justify-between bg-base-100 border border-base-300 p-6 rounded-[8px]"
+                >
+                    <div class="left space-y-5">
+                        <div class="heading space-y-1">
+                            <h2
+                                class="sub_title text-[18px] opacity-90 text-neutral text-[18px] font-semibold"
+                            >
+                                CloudTech
+                            </h2>
+                            <p
+                                class="text_1 text-neutral opacity-60 text-[16px]"
+                            >
+                                DevOps Engineer
+                            </p>
+                        </div>
+                        <div
+                            class="type flex text-neutral opacity-60 text-[14px] sm:text-[16px]"
+                        >
+                            <p class="place">Khulna</p>
+                            <ul class="list-disc list-outside pl-6 flex gap-7">
+                                <li class="job_type">Remote</li>
+                                <li class="salary">70,000 BDT</li>
+                            </ul>
+                        </div>
+                        <div class="apply space-y-2">
+                            <div class="set_type">
+                                <p
+                                    class="apply_type bg-info/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-base-300 font-medium"
+                                >
+                                    NOT APPLIED
+                                </p>
+                            </div>
+                            <p class="description text-[14px] text-neutral/90">
+                                Manage AWS servers and CI/CD pipelines.
+                            </p>
+                        </div>
+                        <div class="button flex gap-2">
+                            <button
+                                class="interview_btn btn btn-success btn-outline border-2"
+                            >
+                                INTERVIEW
+                            </button>
+                            <button
+                                class="rejected_btn btn btn-error btn-outline border-2"
+                            >
+                                REJECTED
+                            </button>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div
+                            class="w-8 h-8 circle rounded-full border-2 border-base-300 cursor-pointer flex items-center justify-center"
+                        >
+                            <i
+                                class="text-neutral/50 fa-regular fa-trash-can"
+                            ></i>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex justify-between bg-base-100 border border-base-300 p-6 rounded-[8px]"
+                >
+                    <div class="left space-y-5">
+                        <div class="heading space-y-1">
+                            <h2
+                                class="sub_title text-[18px] opacity-90 text-neutral text-[18px] font-semibold"
+                            >
+                                AppZone
+                            </h2>
+                            <p
+                                class="text_1 text-neutral opacity-60 text-[16px]"
+                            >
+                                Android Developer
+                            </p>
+                        </div>
+                        <div
+                            class="type flex text-neutral opacity-60 text-[14px] sm:text-[16px]"
+                        >
+                            <p class="place">Barisal</p>
+                            <ul class="list-disc list-outside pl-6 flex gap-7">
+                                <li class="job_type">Full-time</li>
+                                <li class="salary">45,000 BDT</li>
+                            </ul>
+                        </div>
+                        <div class="apply space-y-2">
+                            <div class="set_type">
+                                <p
+                                    class="apply_type bg-info/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-base-300 font-medium"
+                                >
+                                    NOT APPLIED
+                                </p>
+                            </div>
+                            <p class="description text-[14px] text-neutral/90">
+                                Develop Android apps using Kotlin.
+                            </p>
+                        </div>
+                        <div class="button flex gap-2">
+                            <button
+                                class="interview_btn btn btn-success btn-outline border-2"
+                            >
+                                INTERVIEW
+                            </button>
+                            <button
+                                class="rejected_btn btn btn-error btn-outline border-2"
+                            >
+                                REJECTED
+                            </button>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div
+                            class="w-8 h-8 circle rounded-full border-2 border-base-300 cursor-pointer flex items-center justify-center"
+                        >
+                            <i
+                                class="text-neutral/50 fa-regular fa-trash-can"
+                            ></i>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex justify-between bg-base-100 border border-base-300 p-6 rounded-[8px]"
+                >
+                    <div class="left space-y-5">
+                        <div class="heading space-y-1">
+                            <h2
+                                class="sub_title text-[18px] opacity-90 text-neutral text-[18px] font-semibold"
+                            >
+                                NetLink
+                            </h2>
+                            <p
+                                class="text_1 text-neutral opacity-60 text-[16px]"
+                            >
+                                Network Engineer
+                            </p>
+                        </div>
+                        <div
+                            class="type flex text-neutral opacity-60 text-[14px] sm:text-[16px]"
+                        >
+                            <p class="place">Rangpur</p>
+                            <ul class="list-disc list-outside pl-6 flex gap-7">
+                                <li class="job_type">Contract</li>
+                                <li class="salary">35,000 BDT</li>
+                            </ul>
+                        </div>
+                        <div class="apply space-y-2">
+                            <div class="set_type">
+                                <p
+                                    class="apply_type bg-info/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-base-300 font-medium"
+                                >
+                                    NOT APPLIED
+                                </p>
+                            </div>
+                            <p class="description text-[14px] text-neutral/90">
+                                Set up and maintain office networks.
+                            </p>
+                        </div>
+                        <div class="button flex gap-2">
+                            <button
+                                class="interview_btn btn btn-success btn-outline border-2"
+                            >
+                                INTERVIEW
+                            </button>
+                            <button
+                                class="rejected_btn btn btn-error btn-outline border-2"
+                            >
+                                REJECTED
+                            </button>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div
+                            class="w-8 h-8 circle rounded-full border-2 border-base-300 cursor-pointer flex items-center justify-center"
+                        >
+                            <i
+                                class="text-neutral/50 fa-regular fa-trash-can"
+                            ></i>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex justify-between bg-base-100 border border-base-300 p-6 rounded-[8px]"
+                >
+                    <div class="left space-y-5">
+                        <div class="heading space-y-1">
+                            <h2
+                                class="sub_title text-[18px] opacity-90 text-neutral text-[18px] font-semibold"
+                            >
+                                CyberSafe
+                            </h2>
+                            <p
+                                class="text_1 text-neutral opacity-60 text-[16px]"
+                            >
+                                Ethical Hacker
+                            </p>
+                        </div>
+                        <div
+                            class="type flex text-neutral opacity-60 text-[14px] sm:text-[16px]"
+                        >
+                            <p class="place">Mymensingh</p>
+                            <ul class="list-disc list-outside pl-6 flex gap-7">
+                                <li class="job_type">Full-time</li>
+                                <li class="salary">65,000 BDT</li>
+                            </ul>
+                        </div>
+                        <div class="apply space-y-2">
+                            <div class="set_type">
+                                <p
+                                    class="apply_type bg-info/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-base-300 font-medium"
+                                >
+                                    NOT APPLIED
+                                </p>
+                            </div>
+                            <p class="description text-[14px] text-neutral/90">
+                                Perform penetration testing and security audits.
+                            </p>
+                        </div>
+                        <div class="button flex gap-2">
+                            <button
+                                class="interview_btn btn btn-success btn-outline border-2"
+                            >
+                                INTERVIEW
+                            </button>
+                            <button
+                                class="rejected_btn btn btn-error btn-outline border-2"
+                            >
+                                REJECTED
+                            </button>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div
+                            class="w-8 h-8 circle rounded-full border-2 border-base-300 cursor-pointer flex items-center justify-center"
+                        >
+                            <i
+                                class="text-neutral/50 fa-regular fa-trash-can"
+                            ></i>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex justify-between bg-base-100 border border-base-300 p-6 rounded-[8px]"
+                >
+                    <div class="left space-y-5">
+                        <div class="heading space-y-1">
+                            <h2
+                                class="sub_title text-[18px] opacity-90 text-neutral text-[18px] font-semibold"
+                            >
+                                DataMind
+                            </h2>
+                            <p
+                                class="text_1 text-neutral opacity-60 text-[16px]"
+                            >
+                                Data Analyst
+                            </p>
+                        </div>
+                        <div
+                            class="type flex text-neutral opacity-60 text-[14px] sm:text-[16px]"
+                        >
+                            <p class="place">Comilla</p>
+                            <ul class="list-disc list-outside pl-6 flex gap-7">
+                                <li class="job_type">Remote</li>
+                                <li class="salary">38,000 BDT</li>
+                            </ul>
+                        </div>
+                        <div class="apply space-y-2">
+                            <div class="set_type">
+                                <p
+                                    class="apply_type bg-info/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-base-300 font-medium"
+                                >
+                                    NOT APPLIED
+                                </p>
+                            </div>
+                            <p class="description text-[14px] text-neutral/90">
+                                Analyze data using Excel and SQL.
+                            </p>
+                        </div>
+                        <div class="button flex gap-2">
+                            <button
+                                class="interview_btn btn btn-success btn-outline border-2"
+                            >
+                                INTERVIEW
+                            </button>
+                            <button
+                                class="rejected_btn btn btn-error btn-outline border-2"
+                            >
+                                REJECTED
+                            </button>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div
+                            class="w-8 h-8 circle rounded-full border-2 border-base-300 cursor-pointer flex items-center justify-center"
+                        >
+                            <i
+                                class="text-neutral/50 fa-regular fa-trash-can"
+                            ></i>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex justify-between bg-base-100 border border-base-300 p-6 rounded-[8px]"
+                >
+                    <div class="left space-y-5">
+                        <div class="heading space-y-1">
+                            <h2
+                                class="sub_title text-[18px] opacity-90 text-neutral text-[18px] font-semibold"
+                            >
+                                PixelSoft
+                            </h2>
+                            <p
+                                class="text_1 text-neutral opacity-60 text-[16px]"
+                            >
+                                Graphic Designer
+                            </p>
+                        </div>
+                        <div
+                            class="type flex text-neutral opacity-60 text-[14px] sm:text-[16px]"
+                        >
+                            <p class="place">Bogura</p>
+                            <ul class="list-disc list-outside pl-6 flex gap-7">
+                                <li class="job_type">Part-time</li>
+                                <li class="salary">20,000 BDT</li>
+                            </ul>
+                        </div>
+                        <div class="apply space-y-2">
+                            <div class="set_type">
+                                <p
+                                    class="apply_type bg-info/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-base-300 font-medium"
+                                >
+                                    NOT APPLIED
+                                </p>
+                            </div>
+                            <p class="description text-[14px] text-neutral/90">
+                                Design social media banners and posters.
+                            </p>
+                        </div>
+                        <div class="button flex gap-2">
+                            <button
+                                class="interview_btn btn btn-success btn-outline border-2"
+                            >
+                                INTERVIEW
+                            </button>
+                            <button
+                                class="rejected_btn btn btn-error btn-outline border-2"
+                            >
+                                REJECTED
+                            </button>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div
+                            class="w-8 h-8 circle rounded-full border-2 border-base-300 cursor-pointer flex items-center justify-center"
+                        >
+                            <i
+                                class="text-neutral/50 fa-regular fa-trash-can"
+                            ></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section
+                id="interview_container"
+                class="space-y-4 w-full"
+            ></section>
+
+            <section id="rejected_container" class="space-y-4 w-full"></section>
+
+            <section id="no_items" class="" >
+                <div
+                    class="bg-base-100 border border-base-300 p-6 rounded-[8px] flex flex-col items-center py-[111px] w-full"
+                >
+                    <img src="images/jobs.png" alt="" />
+                    <div class="mt-5 text-center">
+                        <h2 class="text-neutral/90 font-semibold text-[24px]">No Jobs Available</h2>
+                        <p class="text-neutral/60">Check back soon for new job opportunities.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <script src="script.js"></script>
+    </body>
+</html>
