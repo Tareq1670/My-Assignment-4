@@ -37,6 +37,25 @@ function toggleButton(id){
 
     const selected = document.getElementById(id);
     selected.classList.add("bg-[#3b82f6]", "text-white","transition-all","duration-300");
+
+    if(id === "all_btn"){
+        mainContainer.classList.remove("hidden");
+        interviewContainer.classList.add("hidden");
+        rejectedContainer.classList.add("hidden");
+        selectedCategory = "all_btn";
+    }
+    if(id === "interview_btn"){
+        mainContainer.classList.add("hidden");
+        interviewContainer.classList.remove("hidden");
+        rejectedContainer.classList.add("hidden");
+        selectedCategory = "interview_btn";
+    }
+    if(id === "rejected_btn"){
+        mainContainer.classList.add("hidden");
+        interviewContainer.classList.add("hidden");
+        rejectedContainer.classList.remove("hidden");
+        selectedCategory = "rejected_btn";
+    }
 }
 
 
@@ -47,3 +66,4 @@ function itemsCounter(){
     interviewCount.textContent = interviewItems.length;
 }
 itemsCounter();
+
