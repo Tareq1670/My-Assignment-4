@@ -77,7 +77,7 @@ function handleEvent(e) {
     if (e.target.classList.contains("interview_btn")) {
         const setType = parentItem.querySelector(".set_type");
         setType.innerHTML = `                                <p
-                                    class="apply_type bg-success/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-success/20 font-medium"
+                                    class="apply_type bg-success/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-success/20 font-medium",
                                 >
                                     INTERVIEW
                                 </p>`;
@@ -172,7 +172,7 @@ function handleEvent(e) {
         };
         console.log(setInfo);
 
-        const rejectedExit = rejectedItems.find((items) => items.header.toLowerCase() === setInfo.toLowerCase())
+        const rejectedExit = rejectedItems.find((items) => items.header.toLowerCase() === setInfo.header.toLowerCase())
 
         if(!rejectedExit){
             rejectedItems.push(setInfo)
