@@ -45,18 +45,21 @@ function toggleButton(id) {
         mainContainer.classList.remove("hidden");
         interviewContainer.classList.add("hidden");
         rejectedContainer.classList.add("hidden");
+        checkNoItems(mainContainer);
     }
     if (id === "interview_btn") {
         mainContainer.classList.add("hidden");
         interviewContainer.classList.remove("hidden");
         rejectedContainer.classList.add("hidden");
         renderInterview();
+        checkNoItems(interviewContainer);
     }
     if (id === "rejected_btn") {
         mainContainer.classList.add("hidden");
         interviewContainer.classList.add("hidden");
         rejectedContainer.classList.remove("hidden");
         renderRejected();
+        checkNoItems(rejectedContainer);
     }
     itemsCounter();
 }
@@ -72,7 +75,7 @@ itemsCounter();
 // Function Call
 mainContainer.addEventListener("click", handleEvent);
 interviewContainer.addEventListener("click", handleEvent);
-rejectedContainer.addEventListener("click", handleEvent)
+rejectedContainer.addEventListener("click", handleEvent);
 
 // Main Function
 function handleEvent(e) {
@@ -109,6 +112,24 @@ function handleEvent(e) {
         const applyType = parentItem
             .querySelector(".apply_type")
             .textContent.trim();
+
+        const mainChildren = Array.from(mainContainer.children);
+        const mainChildExit = mainChildren.find((child) => {
+            const childHeader = child
+                .querySelector(".sub_title")
+                .textContent.trim();
+            return childHeader.toLowerCase() === header.toLowerCase();
+        });
+
+        const setTypeInterview = mainChildExit.querySelector(".set_type");
+        setTypeInterview.innerHTML = `                                <p
+                                    class="apply_type bg-success/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-success/20 font-medium"
+                                >
+                                    INTERVIEW
+                                </p>`;
+
+        mainChildExit.classList.remove("border-error", "bg-error/5");
+        mainChildExit.classList.add("border-success", "bg-success/5", "border-l-5");
 
         const setInfo = {
             header,
@@ -178,6 +199,24 @@ function handleEvent(e) {
             .querySelector(".apply_type")
             .textContent.trim();
 
+        const mainChildren = Array.from(mainContainer.children);
+        const mainChildExit = mainChildren.find((child) => {
+            const childHeader = child
+                .querySelector(".sub_title")
+                .textContent.trim();
+            return childHeader.toLowerCase() === header.toLowerCase();
+        });
+
+        const setTypeRejected = mainChildExit.querySelector(".set_type");
+        setTypeRejected.innerHTML = `                                <p
+                                    class="apply_type bg-error/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-error/20 font-medium"
+                                >
+                                    REJECTED
+                                </p>`;
+
+        mainChildExit.classList.remove("border-success", "bg-success/5");
+        mainChildExit.classList.add("border-error", "bg-error/5", "border-l-5");
+
         const setInfo = {
             header,
             type,
@@ -187,7 +226,6 @@ function handleEvent(e) {
             description,
             applyType,
         };
-        console.log(setInfo);
 
         const rejectedExit = rejectedItems.find(
             (items) =>
@@ -345,18 +383,63 @@ function renderRejected() {
 
 // Delete Items Function Call
 mainContainer.addEventListener("click", deleteItem);
-interviewContainer.addEventListener("click",deleteItem);
-rejectedContainer.addEventListener("click",deleteItem);
+interviewContainer.addEventListener("click", deleteItem);
+rejectedContainer.addEventListener("click", deleteItem);
 
 // Delete Function
 function deleteItem(e) {
     const parentItem = e.target.parentNode.parentNode.parentNode;
     const header = parentItem.querySelector(".sub_title").textContent.trim();
 
-    if(e.target.classList.contains("fa-trash-can")){
+    if (e.target.classList.contains("fa-trash-can")) {
+        const mainChildren = Array.from(mainContainer.children);
+        const mainChildExit = mainChildren.find((child) => {
+            const childHeader = child
+                .querySelector(".sub_title")
+                .textContent.trim();
+            return childHeader === header;
+        });
+        
+        if (mainChildExit) {
+            mainChildExit.classList.remove("border-success", "bg-success/5", "border-error", "bg-error/5", "border-l-5");
+            mainChildExit.classList.add("border-base-300");
+            mainChildExit.querySelector(".set_type").innerHTML = `                                <p
+                                    class="apply_type bg-info/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-base-300 font-medium"
+                                >
+                                    NOT APPLIED
+                                </p>`;
+        }
         parentItem.remove();
-        rejectedItems =rejectedItems.filter(items => items.header.toLowerCase() !== header.toLowerCase());
-        interviewItems = interviewItems.filter(item => item.header.toLowerCase() !== header.toLowerCase());
+        interviewItems = interviewItems.filter(
+            (items) => items.header.toLowerCase() !== header.toLowerCase(),
+        );
+        rejectedItems = rejectedItems.filter(
+            (items) => items.header.toLowerCase() !== header.toLowerCase(),
+        );
     }
     itemsCounter();
+    renderInterview();
+    renderRejected();
+    if (selectedCategory === "interview_btn") {
+        checkNoItems(interviewContainer);
+    }
+    if (selectedCategory === "rejected_btn") {
+        checkNoItems(rejectedContainer);
+    }
+    if (selectedCategory === "all_btn") {
+        checkNoItems(mainContainer);
+    }
+
 }
+
+const noItem = document.getElementById("no_items");
+// No Items Condition
+function checkNoItems(items) {
+    const header = items.querySelectorAll(".sub_title");
+    if (header.length === 0) {
+        noItem.classList.remove("hidden");
+    } else {
+        noItem.classList.add("hidden");
+    }
+}
+
