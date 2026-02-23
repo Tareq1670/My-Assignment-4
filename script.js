@@ -56,6 +56,7 @@ function toggleButton(id){
         rejectedContainer.classList.remove("hidden");
         selectedCategory = "rejected_btn";
     }
+    itemsCounter();
 }
 
 
@@ -67,3 +68,47 @@ function itemsCounter(){
 }
 itemsCounter();
 
+// Function Call
+mainContainer.addEventListener("click",handleEvent);
+
+// Main Function
+function handleEvent(e){
+    const parentItem = e.target.parentNode.parentNode.parentNode;
+    if(e.target.classList.contains("interview_btn")){
+
+        const setType = parentItem.querySelector(".set_type");
+        setType.innerHTML = `                                <p
+                                    class="apply_type bg-success/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-success/20 font-medium"
+                                >
+                                    INTERVIEW
+                                </p>`;
+        parentItem.classList.add("border-l-5", "border-success","transition-all","duration-200", "ease-in-out", "bg-success/5");
+
+        const header = parentItem.querySelector(".sub_title").textContent.trim();
+        const type = parentItem.querySelector(".text_1").textContent.trim();
+        const place = parentItem.querySelector(".place").textContent.trim();
+        const JobType = parentItem.querySelector(".job_type").textContent.trim();
+        const salary = parentItem.querySelector(".salary").textContent.trim();
+        const description = parentItem.querySelector(".description").textContent.trim();
+        const applyType = parentItem.querySelector(".apply_type").textContent.trim();
+        
+
+        const setInfo = {
+            header,
+            type,
+            place,
+            JobType,
+            salary,
+            description,
+            applyType
+        }
+        console.log(setInfo);
+
+        const interviewExit = interviewItems.find((items) => items.header.toLowerCase()  === setInfo.header.toLowerCase())
+        
+        if(!interviewExit){
+            interviewItems.push(setInfo);
+        }
+    }
+    itemsCounter();
+}
