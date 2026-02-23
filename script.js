@@ -62,6 +62,7 @@ function toggleButton(id) {
         checkNoItems(rejectedContainer);
     }
     itemsCounter();
+    countJob()
 }
 
 // Counter Section
@@ -245,6 +246,7 @@ function handleEvent(e) {
         }
     }
     itemsCounter();
+    countJob();
 }
 
 // Interview Section render
@@ -420,6 +422,7 @@ function deleteItem(e) {
     itemsCounter();
     renderInterview();
     renderRejected();
+    countJob();
     if (selectedCategory === "interview_btn") {
         checkNoItems(interviewContainer);
     }
@@ -443,3 +446,18 @@ function checkNoItems(items) {
     }
 }
 
+
+// Job Counter 
+const jobCounter = document.getElementById("jobs_count");
+function countJob() {
+    if(selectedCategory === "all_btn"){
+        jobCounter.textContent = `${mainContainer.children.length} Jobs`;
+    }
+    else if(selectedCategory === "interview_btn"){
+        jobCounter.textContent = `${interviewItems.length} of Jobs ${mainContainer.children.length}`
+    }
+    else{
+        jobCounter.innerHTML = `${rejectedItems.length} of ${mainContainer.children.length}`
+    }
+}
+countJob()
