@@ -342,3 +342,21 @@ function renderRejected() {
         rejectedContainer.prepend(div);
     });
 }
+
+// Delete Items Function Call
+mainContainer.addEventListener("click", deleteItem);
+interviewContainer.addEventListener("click",deleteItem);
+rejectedContainer.addEventListener("click",deleteItem);
+
+// Delete Function
+function deleteItem(e) {
+    const parentItem = e.target.parentNode.parentNode.parentNode;
+    const header = parentItem.querySelector(".sub_title").textContent.trim();
+
+    if(e.target.classList.contains("fa-trash-can")){
+        parentItem.remove();
+        rejectedItems =rejectedItems.filter(items => items.header.toLowerCase() !== header.toLowerCase());
+        interviewItems = interviewItems.filter(item => item.header.toLowerCase() !== header.toLowerCase());
+    }
+    itemsCounter();
+}
