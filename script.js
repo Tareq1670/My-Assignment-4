@@ -39,23 +39,24 @@ function toggleButton(id) {
         "duration-300",
     );
 
+    selectedCategory = id;
+
     if (id === "all_btn") {
         mainContainer.classList.remove("hidden");
         interviewContainer.classList.add("hidden");
         rejectedContainer.classList.add("hidden");
-        selectedCategory = "all_btn";
     }
     if (id === "interview_btn") {
         mainContainer.classList.add("hidden");
         interviewContainer.classList.remove("hidden");
         rejectedContainer.classList.add("hidden");
-        selectedCategory = "interview_btn";
+        renderInterview();
     }
     if (id === "rejected_btn") {
         mainContainer.classList.add("hidden");
         interviewContainer.classList.add("hidden");
         rejectedContainer.classList.remove("hidden");
-        selectedCategory = "rejected_btn";
+        renderRejected();
     }
     itemsCounter();
 }
@@ -70,17 +71,20 @@ itemsCounter();
 
 // Function Call
 mainContainer.addEventListener("click", handleEvent);
+interviewContainer.addEventListener("click", handleEvent);
+rejectedContainer.addEventListener("click", handleEvent)
 
 // Main Function
 function handleEvent(e) {
-    const parentItem = e.target.parentNode.parentNode.parentNode;
     if (e.target.classList.contains("interview_btn")) {
+        const parentItem = e.target.parentNode.parentNode.parentNode;
         const setType = parentItem.querySelector(".set_type");
         setType.innerHTML = `                                <p
-                                    class="apply_type bg-success/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-success/20 font-medium",
+                                    class="apply_type bg-success/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-success/20 font-medium"
                                 >
                                     INTERVIEW
                                 </p>`;
+        parentItem.classList.remove("border-error", "bg-error/5", "border-l-5");
         parentItem.classList.add(
             "border-l-5",
             "border-success",
@@ -89,7 +93,6 @@ function handleEvent(e) {
             "ease-in-out",
             "bg-success/5",
         );
-        parentItem.classList.remove("border-error", "border-error");
 
         const header = parentItem
             .querySelector(".sub_title")
@@ -126,15 +129,30 @@ function handleEvent(e) {
         if (!interviewExit) {
             interviewItems.push(setInfo);
         }
+
+        rejectedItems = rejectedItems.filter(
+            (items) =>
+                items.header.toLowerCase() !== setInfo.header.toLowerCase(),
+        );
+
+        if (selectedCategory === "rejected_btn") {
+            renderRejected();
+        }
     }
 
     if (e.target.classList.contains("rejected_btn")) {
+        const parentItem = e.target.parentNode.parentNode.parentNode;
         const setType = parentItem.querySelector(".set_type");
         setType.innerHTML = `                                <p
                                     class="apply_type bg-error/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-error/20 font-medium"
                                 >
                                     REJECTED
                                 </p>`;
+        parentItem.classList.remove(
+            "border-success",
+            "bg-success/5",
+            "border-l-5",
+        );
         parentItem.classList.add(
             "border-l-5",
             "border-error",
@@ -143,7 +161,6 @@ function handleEvent(e) {
             "ease-in-out",
             "bg-error/5",
         );
-        parentItem.classList.remove("border-success", "border-success");
 
         const header = parentItem
             .querySelector(".sub_title")
@@ -172,11 +189,156 @@ function handleEvent(e) {
         };
         console.log(setInfo);
 
-        const rejectedExit = rejectedItems.find((items) => items.header.toLowerCase() === setInfo.header.toLowerCase())
+        const rejectedExit = rejectedItems.find(
+            (items) =>
+                items.header.toLowerCase() === setInfo.header.toLowerCase(),
+        );
 
-        if(!rejectedExit){
-            rejectedItems.push(setInfo)
+        if (!rejectedExit) {
+            rejectedItems.push(setInfo);
+        }
+
+        interviewItems = interviewItems.filter(
+            (items) =>
+                items.header.toLowerCase() !== setInfo.header.toLowerCase(),
+        );
+        if (selectedCategory === "interview_btn") {
+            renderInterview();
         }
     }
     itemsCounter();
+}
+
+// Interview Section render
+function renderInterview() {
+    interviewContainer.innerHTML = "";
+    interviewItems.forEach((items) => {
+        const div = document.createElement("div");
+        div.classList =
+            "flex justify-between bg-base-100 border border-l-5 border-success p-6 rounded-[8px]";
+        div.innerHTML = `<div class="left space-y-5">
+                        <div class="heading space-y-1">
+                            <h2
+                                class="sub_title text-[18px] opacity-90 text-neutral text-[18px] font-semibold"
+                            >
+                                ${items.header}
+                            </h2>
+                            <p
+                                class="text_1 text-neutral opacity-60 text-[16px]"
+                            >
+                                ${items.type}
+                            </p>
+                        </div>
+                        <div
+                            class="type flex text-neutral opacity-60 text-[14px] sm:text-[16px]"
+                        >
+                            <p class="place">${items.place}</p>
+                            <ul class="list-disc list-outside pl-6 flex gap-7">
+                                <li class="job_type">${items.JobType}</li>
+                                <li class="salary">${items.salary}</li>
+                            </ul>
+                        </div>
+                        <div class="apply space-y-2">
+                            <div class="set_type  transition-all duration-300 ease-in-out">
+                                <p
+                                    class="apply_type bg-success/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-success/20 font-medium"
+                                >
+                                    ${items.applyType}
+                                </p>
+                            </div>
+                            <p class="description text-[14px] text-neutral/90">
+                               ${items.description}
+                            </p>
+                        </div>
+                        <div class="button flex gap-2">
+                            <button
+                                class="interview_btn btn btn-success btn-outline border-2"
+                            >
+                                INTERVIEW
+                            </button>
+                            <button
+                                class="rejected_btn btn btn-error btn-outline border-2"
+                            >
+                                REJECTED
+                            </button>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div
+                            class="w-8 h-8 circle rounded-full border-2 border-base-300 cursor-pointer flex items-center justify-center"
+                        >
+                            <i
+                                class="text-neutral/50 fa-regular fa-trash-can"
+                            ></i>
+                        </div>
+                    </div>`;
+        interviewContainer.prepend(div);
+    });
+}
+
+// Rejected Section Render
+function renderRejected() {
+    rejectedContainer.innerHTML = "";
+    rejectedItems.forEach((items) => {
+        const div = document.createElement("div");
+        div.classList =
+            "flex justify-between bg-base-100 border border-l-5 border-error p-6 rounded-[8px]";
+        div.innerHTML = `<div class="left space-y-5">
+                        <div class="heading space-y-1">
+                            <h2
+                                class="sub_title text-[18px] opacity-90 text-neutral text-[18px] font-semibold"
+                            >
+                                ${items.header}
+                            </h2>
+                            <p
+                                class="text_1 text-neutral opacity-60 text-[16px]"
+                            >
+                                ${items.type}
+                            </p>
+                        </div>
+                        <div
+                            class="type flex text-neutral opacity-60 text-[14px] sm:text-[16px]"
+                        >
+                            <p class="place">${items.place}</p>
+                            <ul class="list-disc list-outside pl-6 flex gap-7">
+                                <li class="job_type">${items.JobType}</li>
+                                <li class="salary">${items.salary}</li>
+                            </ul>
+                        </div>
+                        <div class="apply space-y-2">
+                            <div class="set_type  transition-all duration-300 ease-in-out">
+                                <p
+                                    class="apply_type bg-error/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-error/20 font-medium"
+                                >
+                                    ${items.applyType}
+                                </p>
+                            </div>
+                            <p class="description text-[14px] text-neutral/90">
+                               ${items.description}
+                            </p>
+                        </div>
+                        <div class="button flex gap-2">
+                            <button
+                                class="interview_btn btn btn-success btn-outline border-2"
+                            >
+                                INTERVIEW
+                            </button>
+                            <button
+                                class="rejected_btn btn btn-error btn-outline border-2"
+                            >
+                                REJECTED
+                            </button>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div
+                            class="w-8 h-8 circle rounded-full border-2 border-base-300 cursor-pointer flex items-center justify-center"
+                        >
+                            <i
+                                class="text-neutral/50 fa-regular fa-trash-can"
+                            ></i>
+                        </div>
+                    </div>`;
+        rejectedContainer.prepend(div);
+    });
 }
