@@ -6,9 +6,9 @@
 
 - Only one element can be accessed with `getElementById` with id use. and If the same class name is added to multiple elements, then `getElementByClassName` can be accessed on all elements with the same class name;
 
-- `querySelecto` is used to access the first matching element with a Css selector. and `querySelectorAll` used to accessed the all the matching element with Css Selector.
+- `querySelector` is used to access the first matching element with a Css selector. and `querySelectorAll` used to accessed the all the matching element with Css Selector.
 
-- `getElementClassName` give a `HtmlCallection`
+- `getElementClassName` give a `HtmlCollection`
 - `querySelectorAll` give a `NodeList`.
 
 

@@ -27,10 +27,12 @@
         />
         <title>Job Application Tracker</title>
     </head>
-    <body class="font-['Geist',sans-serif] bg-base-200 min-h-dvh">
+    <body class="font-['Geist',sans-serif] bg-base-200 min-h-dvh scroll-smooth ">
         <!-- Counter Section -->
         <header class="container max-w-[1110px] mx-auto p-1 sm:p-0">
-            <h1 class="text-[32px] opacity-90 text-neutral font-bold mb-[20px] pt-2 sm:pt-6">
+            <h1
+                class="text-[28px] sm:text[32px] opacity-90 text-neutral font-bold mb-[20px] pt-2 sm:pt-6"
+            >
                 Job Application Tracker
             </h1>
             <div
@@ -82,9 +84,7 @@
                     >
                         Available Jobs
                     </h3>
-                    <p id="jobs_count" class="font-medium font-base-200">
-                        8 Jobs
-                    </p>
+                    <p id="jobs_count" class="font-medium font-base-200"></p>
                 </div>
 
                 <!-- Toggle Button Section -->
@@ -681,7 +681,9 @@
                             </ul>
                         </div>
                         <div class="apply space-y-2">
-                            <div class="set_type  transition-all duration-300 ease-in-out">
+                            <div
+                                class="set_type transition-all duration-300 ease-in-out"
+                            >
                                 <p
                                     class="apply_type bg-info/10 px-3 py-2 inline-block text-neutral/90 rounded-[8px] border border-base-300 font-medium"
                                 >
@@ -724,14 +726,18 @@
 
             <section id="rejected_container" class="space-y-4 w-full"></section>
 
-            <section id="no_items" class="hidden" >
+            <section id="no_items" class="hidden">
                 <div
                     class="bg-base-100 border border-base-300 p-6 rounded-[8px] flex flex-col items-center py-[111px] w-full"
                 >
                     <img src="images/jobs.png" alt="" />
                     <div class="mt-5 text-center">
-                        <h2 class="text-neutral/90 font-semibold text-[24px]">No Jobs Available</h2>
-                        <p class="text-neutral/60">Check back soon for new job opportunities.</p>
+                        <h2 class="text-neutral/90 font-semibold text-[24px]">
+                            No Jobs Available
+                        </h2>
+                        <p class="text-neutral/60">
+                            Check back soon for new job opportunities.
+                        </p>
                     </div>
                 </div>
             </section>
