@@ -141,7 +141,6 @@ function handleEvent(e) {
             description,
             applyType,
         };
-        console.log(setInfo);
 
         const interviewExit = interviewItems.find(
             (items) =>
